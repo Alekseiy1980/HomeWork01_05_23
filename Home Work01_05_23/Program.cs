@@ -159,6 +159,10 @@
 // System.Console.WriteLine();
 // Sum2DArray(array);
 
+
+/*
+  ДОДЕЛАТЬ!!!!
+*/
 // Задача 58: Задайте две матрицы. Напишите программу, которая будет находить 
 // произведение двух матриц.
 // Например, даны 2 матрицы:
@@ -205,14 +209,14 @@
 //          {
 //             System.Console.Write(array[i, j] + " ");
 //          }
-//          else if (j > (array.GetLength(1) - 1) && j < width - array.GetLength(1))
+//          else if (j > array.GetLength(1) - 1 && j < width - array.GetLength(1))
 //          {
 //             System.Console.Write(" ");
 //          }
 //          else
 //          {
-//             System.Console.Write(mas[j % array.GetLength(1), i] + " ");
-//             // System.Console.Write(mas[i, j % array.GetLength(1)] + " ");
+
+//             System.Console.Write(mas[i, j % array.GetLength(1)] + " ");
 
 //          }
 //       }
@@ -223,7 +227,7 @@
 // void ProductOfTwoMatrices(int[,] array, int[,] mas)
 // {
 //    int[,] matrix = new int[array.GetLength(0), array.GetLength(1)];
-//    // int matrixValue = 0;
+
 //    for (int i = 0; i < array.GetLength(0); i++)
 //    {
 //       for (int j = 0; j < array.GetLength(1); j++)
@@ -231,11 +235,9 @@
 
 //          for (int k = 0; k < array.GetLength(1); k++)
 //          {
-
-//             matrix[i, j] += array[i, j] * mas[j, k];
+//             matrix[i, j] = array[i, k] * mas[k, j];
 
 //          }
-
 //       }
 //    }
 
@@ -262,11 +264,11 @@
 //    row2 = Convert.ToInt32(Console.ReadLine());
 //    System.Console.WriteLine("Input Array2 size Column ");
 //    col2 = Convert.ToInt32(Console.ReadLine());
-//    if ((row != col2 || col != row2))
+//    if ((row != col || row2 != col2) || (row != col2 || col != row2))
 //    {
 //       System.Console.WriteLine("Error input ");
 //    }
-// } while (row != col2 || col != row2);
+// } while ((row != col || row2 != col2) || (row != col2 || col != row2));
 // System.Console.WriteLine("Input Array minValue ");
 // minValue = Convert.ToInt32(Console.ReadLine());
 // System.Console.WriteLine("Input Array maxValue ");
@@ -274,14 +276,12 @@
 // int[,] array = new int[row, col];
 // int[,] mas = new int[row2, col2];
 // array = Creat2DArray(array, minValue, maxValue);
-// // Print2DArray(array);
-// System.Console.WriteLine();
 // mas = Creat2DArray(mas, minValue, maxValue);
 // System.Console.WriteLine();
 // Display(array, mas);
 // System.Console.WriteLine();
 // ProductOfTwoMatrices(array, mas);
-// // Print2DArray(mas);
+
 
 // Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. 
 // Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
@@ -290,21 +290,58 @@
 // 34(1,0,0) 41(1,1,0)
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
-int[,,] Creat2DArray(int[,,] array, int minValue, int maxValue)
-{
+// int[,,] Creat3DArray(int[,,] array)
+// {
+//    int minValue = 10;
+//    int maxValue = 100;
 
-   for (int i = 0; i < array.GetLength(0); i++)
-   {
-      for (int j = 0; j < array.GetLength(1); j++)
-      {
-         for (int k = 0; k < array.GetLength(2); k++)
-         {
-            array[i, j, k] = new Random().Next(minValue, maxValue);
-         }
-      }
-   }
-   return array;
-}
+//    for (int i = 0; i < array.GetLength(0); i++)
+//    {
+//       for (int j = 0; j < array.GetLength(1); j++)
+//       {
+//          for (int k = 0; k < array.GetLength(2); k++)
+//          {
+//             array[i, j, k] = new Random().Next(minValue, maxValue);
+//             for (int l = 0; l < k; l++)
+//             {
+//                if (array[i, j, k] == array[j, k, l])
+//                {
+//                   k--;
+//                }
+//             }
+//          }
+//       }
+//    }
+//    return array;
+// }
+
+// void Print3DArray(int[,,] array)
+// {
+//    for (int i = 0; i < array.GetLength(0); i++)
+//    {
+//       for (int j = 0; j < array.GetLength(1); j++)
+//       {
+//          for (int k = 0; k < array.GetLength(2); k++)
+//          {
+//             System.Console.Write($"{array[i, j, k]} ({i},{j},{k}) ");
+//          }
+//          System.Console.WriteLine();
+//       }
+
+//    }
+// }
+
+// System.Console.WriteLine("Input Array size Row ");
+// int row = Convert.ToInt32(Console.ReadLine());
+// System.Console.WriteLine("Input Array size Column ");
+// int col = Convert.ToInt32(Console.ReadLine());
+// System.Console.WriteLine("Input Array size Depth ");
+// int depth = Convert.ToInt32(Console.ReadLine());
+// int[,,] array = new int[row, col, depth];
+// array = Creat3DArray(array);
+// Print3DArray(array);
+
+
 
 
 // Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
@@ -313,4 +350,67 @@ int[,,] Creat2DArray(int[,,] array, int minValue, int maxValue)
 // 12 13 14 05
 // 11 16 15 06
 // 10 09 08 07
+
+int[,] Creat2DArray(int[,] array)
+{
+   int SizeX = array.GetUpperBound(0);
+   int SizeY = array.GetUpperBound(1);
+   int maxX = SizeX;
+   int maxY = SizeY + 1;
+   int dirX = 1;
+   int dirY = 1;
+
+   int x = 0;
+   int y = -1;
+   int val = 1;
+   while ((maxX >= 0) && (maxY >= 0))
+   {
+      for (int yval = 1; yval <= maxY; yval++)
+      {
+         array[x, y + dirY * yval] = val;
+         val++;
+      }
+      y = y + dirY * maxY;
+      dirY = -dirY;
+      maxY--;
+      for (int xval = 1; xval <= maxX; xval++)
+      {
+         array[x + dirX * xval, y] = val;
+         val++;
+      }
+      x = x + dirX * maxX;
+      dirX = -dirX;
+      maxX--;
+   }
+   return array;
+}
+
+
+
+void Print2DArray(int[,] array)
+{
+   int minValue = 10;
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+      for (int j = 0; j < array.GetLength(1); j++)
+      {
+         if (array[i, j] < minValue)
+         {
+            System.Console.Write($"0{array[i, j]} ");
+         }
+         else System.Console.Write($"{array[i, j]} ");
+      }
+      System.Console.WriteLine();
+   }
+}
+
+System.Console.WriteLine("Input Array size Row ");
+int row = Convert.ToInt32(Console.ReadLine());
+System.Console.WriteLine("Input Array size Column ");
+int col = Convert.ToInt32(Console.ReadLine());
+int[,] array = new int[row, col];
+array = Creat2DArray(array);
+Print2DArray(array);
+System.Console.WriteLine();
+
 
